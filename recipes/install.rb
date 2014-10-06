@@ -66,3 +66,10 @@ execute "run_install_license"  do
   command "#{INSTALL_DIR}/#{DIRECTORY_MULE}/bin/mule -installLicense #{INSTALL_DIR}/#{LICENSE_FILE}"
   action :run
 end
+
+mule_deploy_from_remote_file "Deploy From Remote File" do
+  base_url_deploy 'https://s3-sa-east-1.amazonaws.com/b2b-hu/deploy'
+  file_deploy 'huapimanager.zip'
+  path_apps "#{INSTALL_DIR}/#{DIRECTORY_MULE}/apps"
+  path_tmp_download "#{INSTALL_DIR}"
+end
