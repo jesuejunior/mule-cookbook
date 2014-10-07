@@ -6,6 +6,8 @@ LICENSE_FILE = "mule-ee-license.lic"
 ZIP_FILE = "mule-ee-distribution-standalone-3.5.1.zip"
 LICENSE_URL = "#{URL_CHEF_SOLO}/#{LICENSE_FILE}"
 MULE_URL = "#{URL_CHEF_SOLO}/#{ZIP_FILE}"
+BASE_URL_DEPLOY = node['mule']['base_url_deploy']
+FILE_DEPLOY = node['mule']['name_file_deploy']
 
 # Preparação para o download do mule-enterprise server.
 remote_file "#{INSTALL_DIR}/#{ZIP_FILE}" do
@@ -68,8 +70,8 @@ execute "run_install_license"  do
 end
 
 mule_deploy_from_remote_file "Deploy From Remote File" do
-  base_url_deploy 'https://s3-sa-east-1.amazonaws.com/b2b-hu/deploy'
-  file_deploy 'huapimanager.zip'
+  base_url_deploy "#{BASE_URL_DEPLOY}"
+  file_deploy "#{FILE_DEPLOY}"
   path_apps "#{INSTALL_DIR}/#{DIRECTORY_MULE}/apps"
   path_tmp_download "#{INSTALL_DIR}"
 end
