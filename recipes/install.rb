@@ -69,9 +69,11 @@ execute "run_install_license"  do
   action :run
 end
 
-mule_deploy_from_remote_file "Deploy From Remote File" do
-  base_url_deploy "#{BASE_URL_DEPLOY}"
-  file_deploy "#{FILE_DEPLOY}"
-  path_apps "#{INSTALL_DIR}/#{DIRECTORY_MULE}/apps"
-  path_tmp_download "#{INSTALL_DIR}"
+if !BASE_URL_DEPLOY.nil?
+  mule_deploy_from_remote_file "Deploy From Remote File" do
+    base_url_deploy "#{BASE_URL_DEPLOY}"
+    file_deploy "#{FILE_DEPLOY}"
+    path_apps "#{INSTALL_DIR}/#{DIRECTORY_MULE}/apps"
+    path_tmp_download "#{INSTALL_DIR}"
+  end
 end
