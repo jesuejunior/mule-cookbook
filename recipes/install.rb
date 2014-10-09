@@ -8,6 +8,7 @@ LICENSE_URL = "#{URL_CHEF_SOLO}/#{LICENSE_FILE}"
 MULE_URL = "#{URL_CHEF_SOLO}/#{ZIP_FILE}"
 BASE_URL_DEPLOY = node['mule']['base_url_deploy']
 FILE_DEPLOY = node['mule']['name_file_deploy']
+KEY_LOG_SENTRY = node['mule']['key_log_sentry']
 
 # Preparação para o download do mule-enterprise server.
 remote_file "#{INSTALL_DIR}/#{ZIP_FILE}" do
@@ -75,5 +76,13 @@ if !BASE_URL_DEPLOY.nil?
     file_deploy "#{FILE_DEPLOY}"
     path_apps "#{INSTALL_DIR}/#{DIRECTORY_MULE}/apps"
     path_tmp_download "#{INSTALL_DIR}"
+  end
+end
+
+if !KEY_LOG_SENTRY.nil?
+  mule_configure_sentry "Configure Sentry Log4J" do
+    key_log_sentry "#{KEY_LOG_SENTRY}"
+    dir_mule "#{INSTALL_DIR}/#{DIRECTORY_MULE}"
+    url_chef_download_files "#{URL_CHEF_SOLO}/sentry-java"
   end
 end
