@@ -85,4 +85,12 @@ if !KEY_LOG_SENTRY.nil?
     dir_mule "#{INSTALL_DIR}/#{DIRECTORY_MULE}"
     url_chef_download_files "#{URL_CHEF_SOLO}/sentry-java"
   end
+
+  service "mule" do
+    supports :status => true, :restart => true, :start => true, :reload => false
+    provider Chef::Provider::Service::Upstart
+    action :restart
+    not_if 'status mule | grep stop'
+  end
+
 end
