@@ -17,8 +17,8 @@ end
 
 def update_package
   if ::File.exists?("#{new_resource.path_tmp_download}/#{new_resource.file_deploy}")
+    checksumFile = ::File.mtime("#{new_resource.path_tmp_download}/#{new_resource.file_deploy}").httpdate
     if ::File.exists?("#{new_resource.path_tmp_download}/checksum")  
-      checksumFile = ::File.mtime("#{new_resource.path_tmp_download}/#{new_resource.file_deploy}").httpdate
       checkSumActual = IO.read("#{new_resource.path_tmp_download}/checksum")
     end
     if checksumFile != checkSumActual
