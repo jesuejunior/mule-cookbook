@@ -27,13 +27,12 @@ action :configure do
     end
     action :create
   end
-	
-	template "#{DIR_LOG4J_PROPERTIES_MULE}" do
-	  source 'sentry/log4j.erb'
-	  variables ({
-	    :app_name => new_resource.app_name,
-	    :key_log_sentry => new_resource.key_log_sentry,
-	  })
-	end
 
+  template "#{DIR_LOG4J_PROPERTIES_MULE}" do
+    source 'sentry/log4j.erb'
+    variables ({
+      :app_name => new_resource.app_name,
+      :key_log_sentry => new_resource.key_log_sentry
+    })
+  end
 end

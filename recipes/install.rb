@@ -76,6 +76,7 @@ if !BASE_URL_DEPLOY.nil?
     file_deploy "#{FILE_DEPLOY}"
     path_apps "#{INSTALL_DIR}/#{DIRECTORY_MULE}/apps"
     path_tmp_download "#{INSTALL_DIR}"
+    mail_to node['mule']['mail_to_deploy']
   end
 end
 
@@ -85,12 +86,4 @@ if !KEY_LOG_SENTRY.nil?
     dir_mule "#{INSTALL_DIR}/#{DIRECTORY_MULE}"
     url_chef_download_files "#{URL_CHEF_SOLO}/sentry-java"
   end
-
-  service "mule" do
-    supports :status => true, :restart => true, :start => true, :reload => false
-    provider Chef::Provider::Service::Upstart
-    action :restart
-    not_if 'status mule | grep stop'
-  end
-
 end
